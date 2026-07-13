@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Under the Starlit Sky — Where art meets aerospace</title>
+<meta name="description" content="An illustrated journal at the meeting point of art and aerospace. Every post is a star; together they make a constellation." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  /* ============ TOKENS ============ */
+  :root{
+    --ink:#070C1C; --ink-2:#0C1430; --ink-3:#101B3B;
+    --star:#ECE7D7; --haze:#8492AE; --cyan:#86ABD4;
+    --brass:#D6AA5B; --brass-deep:#B4863A;
+    --line:rgba(134,171,212,0.22); --line-soft:rgba(134,171,212,0.12);
+    --display:"Cormorant Garamond",Georgia,serif;
+    --body:"Spectral",Georgia,serif;
+    --mono:"Space Mono",ui-monospace,monospace;
+    --pad:clamp(1.25rem,5vw,6rem); --maxw:1240px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+  body{background:var(--ink);color:var(--star);font-family:var(--body);font-weight:300;
+    line-height:1.6;font-size:clamp(1rem,0.55rem + 0.6vw,1.12rem);letter-spacing:0.005em;
+    overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none;}
+  img{display:block;max-width:100%;}
+  ::selection{background:var(--brass);color:var(--ink);}
+  button{font-family:inherit;}
+
+  #sky{position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(120% 90% at 50% -10%,#131f45 0%,#0a1024 42%,var(--ink) 78%);}
+  .page{position:relative;z-index:1;}
+
+  .eyebrow{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.32em;
+    text-transform:uppercase;color:var(--brass);}
+  .coord{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.12em;color:var(--haze);}
+  .shell{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--pad);}
+
+  /* ---- the star hidden in the wordmark (dot of the i) ---- */
+  .dot-i{position:relative;}
+  .spark{position:absolute;left:50%;top:0.04em;width:0.4em;height:0.4em;
+    transform:translate(-52%,-32%);pointer-events:none;
+    animation:twinkle 3.4s ease-in-out infinite;}
+  .spark svg{width:100%;height:100%;display:block;
+    filter:drop-shadow(0 0 0.14em rgba(255,230,180,0.95));}
+  .spark path{fill:var(--brass);}
+  @keyframes twinkle{
+    0%,100%{opacity:.4;transform:translate(-52%,-32%) scale(.72) rotate(0deg);}
+    50%{opacity:1;transform:translate(-52%,-32%) scale(1.18) rotate(90deg);}
+  }
+
+  .rule{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad);
+    display:flex;align-items:center;gap:1.1rem;}
+  .rule__ticks{flex:1;height:26px;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),
+      linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);
+    background-size:100% 26px,13px 26px;background-position:bottom,bottom;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);}
+  .rule__label{white-space:nowrap;}
+
+  /* ============ HEADER ============ */
+  header{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;
+    justify-content:space-between;padding:1.15rem var(--pad);
+    transition:padding .4s ease,background .4s ease,border-color .4s ease;
+    border-bottom:1px solid transparent;}
+  header.scrolled{padding-block:0.7rem;background:rgba(7,12,28,0.82);
+    backdrop-filter:blur(12px);border-bottom:1px solid var(--line-soft);}
+  .brand__mark{font-family:var(--display);font-weight:500;font-size:1.5rem;
+    letter-spacing:0.04em;line-height:1;color:var(--star);}
+  .brand__mark em{color:var(--brass);font-style:italic;}
+  nav{display:flex;align-items:center;gap:2rem;}
+  .nav-links{display:flex;gap:1.8rem;}
+  nav a{font-family:var(--mono);font-size:0.72rem;letter-spacing:0.16em;
+    text-transform:uppercase;color:var(--haze);padding-bottom:2px;position:relative;
+    transition:color .25s ease;}
+  nav a::after{content:"";position:absolute;left:0;bottom:-2px;height:1px;width:0;
+    background:var(--brass);transition:width .3s ease;}
+  nav a:hover,nav a:focus-visible{color:var(--star);}
+  nav a:hover::after,nav a:focus-visible::after{width:100%;}
+  .menu-btn{display:none;background:none;border:1px solid var(--line);color:var(--star);
+    font-family:var(--mono);font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;
+    padding:0.55rem 0.9rem;cursor:pointer;border-radius:2px;}
+
+  /* ============ HERO ============ */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;}
+  .hero__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    object-position:50% 22%;opacity:0.9;}
+  .hero__veil{position:absolute;inset:0;background:linear-gradient(180deg,
+    rgba(7,12,28,0.35) 0%,rgba(7,12,28,0.05) 30%,rgba(7,12,28,0.72) 78%,var(--ink) 100%);}
+  .hero__grid{position:absolute;inset:0;opacity:0.35;
+    background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),
+      linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);background-size:64px 64px;
+    -webkit-mask-image:radial-gradient(120% 100% at 50% 20%,transparent 30%,#000 100%);
+    mask-image:radial-gradient(120% 100% at 50% 20%,transparent 30%,#000 100%);}
+  .hero__content{position:relative;z-index:2;width:100%;max-width:var(--maxw);
+    margin-inline:auto;padding:0 var(--pad) clamp(3rem,8vh,7rem);}
+  .hero__meta{display:flex;gap:1.5rem;flex-wrap:wrap;align-items:center;margin-bottom:1.6rem;}
+  .hero h1{font-family:var(--display);font-weight:300;font-size:clamp(3.2rem,11vw,9.5rem);
+    line-height:0.92;letter-spacing:-0.01em;text-wrap:balance;}
+  .hero h1 em{font-style:italic;color:var(--brass);}
+  .hero__slogan{font-family:var(--mono);font-size:clamp(0.8rem,1.6vw,1rem);letter-spacing:0.22em;
+    text-transform:uppercase;color:var(--cyan);margin-top:1.7rem;display:flex;align-items:center;gap:0.9rem;}
+  .hero__slogan::before{content:"";width:clamp(28px,6vw,64px);height:1px;background:var(--brass);}
+  .scrollcue{position:absolute;z-index:2;left:50%;bottom:1.6rem;transform:translateX(-50%);
+    font-family:var(--mono);font-size:0.62rem;letter-spacing:0.24em;text-transform:uppercase;
+    color:var(--haze);display:flex;flex-direction:column;align-items:center;gap:0.5rem;}
+  .scrollcue span{display:block;width:1px;height:38px;
+    background:linear-gradient(var(--brass),transparent);animation:drop 2.4s ease-in-out infinite;}
+  @keyframes drop{0%{transform:scaleY(0);transform-origin:top;opacity:0}
+    40%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1) translateY(38px);opacity:0}}
+
+  /* ============ SECTION HEAD ============ */
+  .sec-head{margin-bottom:2.6rem;}
+  .sec-head h2{font-family:var(--display);font-weight:400;font-size:clamp(2rem,4.4vw,3.4rem);
+    line-height:1;letter-spacing:-0.01em;margin-top:0.5rem;}
+
+  /* ============ VEHICLE / ROCKET ============ */
+  .vehicle{padding:clamp(4rem,10vh,8rem) 0;}
+  .vehicle__inner{display:grid;grid-template-columns:0.95fr 1.05fr;gap:clamp(2rem,5vw,5rem);
+    align-items:center;}
+  .rocket-wrap{display:flex;justify-content:center;}
+  .rocket-svg{width:100%;max-width:420px;height:auto;max-height:70vh;}
+  .rocket-svg .cut{fill:none;stroke:var(--cyan);stroke-width:1.4;}
+  .rocket-svg .thin{fill:none;stroke:var(--line);stroke-width:1;}
+  .rocket-svg .hair{fill:none;stroke:var(--line-soft);stroke-width:1;}
+  .rocket-svg .fillp{fill:rgba(134,171,212,0.06);stroke:var(--cyan);stroke-width:1.4;}
+  .rocket-svg .brassf{fill:none;stroke:var(--brass);stroke-width:1.6;}
+  .rocket-svg .dot{fill:var(--cyan);}
+  .rocket-svg .lbl{fill:var(--star);font-family:var(--mono);font-size:11px;letter-spacing:1px;}
+  .rocket-svg .lblsm{fill:var(--haze);font-family:var(--mono);font-size:8.5px;letter-spacing:1px;}
+  .rocket-svg .lead{stroke:var(--line);stroke-width:1;fill:none;}
+  .rocket-svg .brasslbl{fill:var(--brass);font-family:var(--mono);font-size:11px;letter-spacing:1px;}
+  .vehicle__text h2{font-family:var(--display);font-weight:400;font-size:clamp(2rem,4vw,3.2rem);
+    line-height:1.02;margin:0.7rem 0 1.1rem;letter-spacing:-0.005em;}
+  .vehicle__text p{color:#cfd3e0;max-width:46ch;}
+  .spec{margin-top:2rem;border-top:1px solid var(--line-soft);}
+  .spec div{display:flex;justify-content:space-between;padding:0.75rem 0;
+    border-bottom:1px solid var(--line-soft);font-family:var(--mono);font-size:0.72rem;
+    letter-spacing:0.08em;color:var(--haze);}
+  .spec div b{color:var(--star);font-weight:400;}
+
+  /* ============ STAR CHART ============ */
+  .chart{padding:clamp(3rem,8vh,6rem) 0 clamp(4rem,10vh,7rem);}
+  .chart__grid{display:grid;grid-template-columns:1.55fr 1fr;gap:clamp(2rem,4vw,3.5rem);
+    align-items:stretch;}
+  .chart__map{position:relative;border:1px solid var(--line);background:
+    radial-gradient(120% 120% at 50% 20%,rgba(19,31,69,0.55),rgba(7,12,28,0.2));
+    border-radius:3px;overflow:hidden;min-height:460px;}
+  .chart__map svg{width:100%;height:100%;display:block;}
+  .chart__hint{position:absolute;left:1rem;bottom:0.9rem;font-family:var(--mono);
+    font-size:0.62rem;letter-spacing:0.12em;color:var(--haze);pointer-events:none;}
+  .chart__count{position:absolute;right:1rem;top:0.9rem;font-family:var(--mono);
+    font-size:0.62rem;letter-spacing:0.14em;color:var(--brass);pointer-events:none;}
+  .clink{stroke:var(--line);stroke-width:1;}
+  .clink.new{animation:draw 1.1s ease forwards;}
+  .node{cursor:pointer;transform-box:fill-box;transform-origin:center;
+    transition:transform .3s cubic-bezier(.2,.7,.2,1);outline:none;}
+  .node .glow{fill:var(--cyan);opacity:0.14;}
+  .node .core{fill:var(--star);}
+  .node.newest .core{fill:var(--brass);}
+  .node.newest .glow{fill:var(--brass);opacity:0.2;}
+  .node .label{fill:var(--star);font-family:var(--mono);font-size:12px;letter-spacing:0.5px;
+    opacity:0;transition:opacity .25s ease;text-anchor:middle;pointer-events:none;}
+  .node .num{fill:var(--haze);font-family:var(--mono);font-size:8px;pointer-events:none;text-anchor:middle;}
+  .node:hover,.node:focus-visible{transform:scale(1.5);}
+  .node:hover .label,.node:focus-visible .label{opacity:1;}
+  .node:focus-visible .core{stroke:var(--brass);stroke-width:1.5;}
+  .node.spawn{animation:pop .8s cubic-bezier(.2,.9,.3,1.2);}
+  @keyframes pop{0%{transform:scale(0);opacity:0}60%{transform:scale(1.7)}100%{transform:scale(1)}}
+  @keyframes draw{from{stroke-dashoffset:var(--len)}to{stroke-dashoffset:0}}
+
+  .compose{border:1px solid var(--line);padding:clamp(1.4rem,2.5vw,2rem);display:flex;
+    flex-direction:column;position:relative;border-radius:3px;background:rgba(12,20,48,0.4);}
+  .compose::before,.compose::after{content:"";position:absolute;width:9px;height:9px;border:1px solid var(--brass);}
+  .compose::before{top:-1px;left:-1px;border-right:0;border-bottom:0;}
+  .compose::after{bottom:-1px;right:-1px;border-left:0;border-top:0;}
+  .compose h3{font-family:var(--display);font-weight:400;font-size:1.7rem;margin:0.5rem 0 0.3rem;}
+  .compose > p{color:var(--haze);font-size:0.9rem;margin-bottom:1.3rem;}
+  .field-group{display:flex;flex-direction:column;gap:0.9rem;}
+  .field-group label{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.16em;
+    text-transform:uppercase;color:var(--haze);display:block;margin-bottom:0.4rem;}
+  .field-group input,.field-group select,.field-group textarea{width:100%;background:transparent;
+    border:1px solid var(--line);color:var(--star);font-family:var(--body);font-size:0.98rem;
+    padding:0.7rem 0.8rem;border-radius:2px;transition:border-color .3s ease;}
+  .field-group textarea{resize:vertical;min-height:70px;line-height:1.5;}
+  .field-group input:focus,.field-group select:focus,.field-group textarea:focus{outline:none;border-color:var(--brass);}
+  .field-group input::placeholder,.field-group textarea::placeholder{color:#5f6b86;}
+  .field-group select{appearance:none;cursor:pointer;}
+  .btn{background:var(--brass);color:var(--ink);border:none;cursor:pointer;font-family:var(--mono);
+    font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;padding:0.95rem 1.6rem;
+    border-radius:2px;transition:background .3s ease,transform .2s ease;}
+  .btn:hover{background:var(--star);}
+  .btn:active{transform:translateY(1px);}
+  .compose__foot{display:flex;justify-content:space-between;align-items:center;margin-top:1.2rem;
+    gap:1rem;flex-wrap:wrap;}
+  .linkbtn{background:none;border:none;color:var(--haze);font-family:var(--mono);font-size:0.62rem;
+    letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;padding:0;border-bottom:1px solid transparent;
+    transition:color .25s ease,border-color .25s ease;}
+  .linkbtn:hover{color:var(--brass);border-color:var(--brass);}
+  .compose__note{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.06em;color:var(--haze);
+    min-height:1em;margin-top:0.9rem;}
+  .compose__note.ok{color:var(--brass);}
+
+  /* ============ FEATURED ============ */
+  .featured{padding:clamp(3rem,8vh,7rem) 0;}
+  .featured__inner{display:grid;grid-template-columns:1.05fr 0.95fr;gap:clamp(2rem,5vw,5rem);align-items:center;}
+  .featured__figure{position:relative;}
+  .featured__figure img{width:100%;aspect-ratio:4/5;object-fit:cover;border:1px solid var(--line);}
+  .featured__figure .frameline{position:absolute;inset:12px;border:1px solid var(--line-soft);pointer-events:none;}
+  .featured__figure figcaption{position:absolute;left:0;bottom:-1.9rem;font-family:var(--mono);
+    font-size:0.64rem;letter-spacing:0.14em;color:var(--haze);}
+  .tag{display:inline-block;font-family:var(--mono);font-size:0.64rem;letter-spacing:0.2em;
+    text-transform:uppercase;color:var(--brass);border:1px solid var(--line);padding:0.35rem 0.7rem;border-radius:2px;}
+  .featured h2{font-family:var(--display);font-weight:400;font-size:clamp(2.4rem,4.6vw,4rem);
+    line-height:1.02;margin:1.4rem 0 1.1rem;letter-spacing:-0.005em;text-wrap:balance;}
+  .featured p{color:#cfd3e0;max-width:46ch;}
+  .read{display:inline-flex;align-items:center;gap:0.7rem;margin-top:1.8rem;font-family:var(--mono);
+    font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--star);
+    border:none;border-bottom:1px solid var(--brass);padding-bottom:0.4rem;cursor:pointer;background:none;
+    transition:gap .3s ease,color .3s ease;}
+  .read:hover,.read:focus-visible{gap:1.3rem;color:var(--brass);}
+  .read__by{display:flex;gap:1.2rem;align-items:center;margin-top:2rem;color:var(--haze);
+    font-family:var(--mono);font-size:0.66rem;letter-spacing:0.1em;}
+
+  /* ============ JOURNAL GRID ============ */
+  .journal{padding:clamp(2rem,5vh,4rem) 0 clamp(4rem,10vh,8rem);}
+  .journal__head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;
+    gap:1rem;margin-bottom:2.6rem;}
+  .journal__head h2{font-family:var(--display);font-weight:400;font-size:clamp(2rem,4vw,3.2rem);
+    line-height:1;letter-spacing:-0.01em;}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-soft);
+    border:1px solid var(--line-soft);}
+  .card{background:var(--ink);padding:1.9rem 1.7rem 2.1rem;display:flex;flex-direction:column;
+    min-height:320px;transition:background .4s ease;position:relative;overflow:hidden;cursor:pointer;
+    text-align:left;border:none;color:inherit;width:100%;}
+  .card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--brass);
+    transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.2,.7,.2,1);}
+  .card:hover{background:var(--ink-2);}
+  .card:hover::before,.card:focus-visible::before{transform:scaleX(1);}
+  .card__top{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.4rem;}
+  .card__no{font-family:var(--mono);font-size:0.66rem;letter-spacing:0.16em;color:var(--haze);}
+  .card__cat{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--cyan);}
+  .card h3{font-family:var(--display);font-weight:400;font-size:clamp(1.5rem,2.4vw,2rem);
+    line-height:1.08;letter-spacing:-0.005em;margin-bottom:0.9rem;text-wrap:balance;}
+  .card p{color:#b9c0d2;font-size:0.94rem;}
+  .card__foot{margin-top:auto;padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;
+    font-family:var(--mono);font-size:0.62rem;letter-spacing:0.1em;color:var(--haze);}
+  .card__foot .arrow{color:var(--brass);transition:transform .3s ease;}
+  .card:hover .card__foot .arrow{transform:translateX(5px);}
+
+  /* ============ EVENT HORIZON ============ */
+  .horizon{position:relative;min-height:86vh;overflow:hidden;display:flex;align-items:flex-end;
+    border-block:1px solid var(--line-soft);}
+  #blackhole{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;}
+  .horizon__content{position:relative;z-index:2;max-width:var(--maxw);margin-inline:auto;width:100%;
+    padding:0 var(--pad) clamp(2.5rem,7vh,5rem);pointer-events:none;}
+  .horizon__content .eyebrow{display:block;}
+  .horizon h2{font-family:var(--display);font-weight:300;font-size:clamp(2.4rem,6vw,5rem);
+    line-height:0.98;letter-spacing:-0.01em;margin:0.7rem 0 1rem;text-wrap:balance;}
+  .horizon h2 em{font-style:italic;color:var(--brass);}
+  .horizon p{color:#cfd3e0;max-width:50ch;}
+  .horizon__hint{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;
+    color:var(--haze);margin-top:1.6rem;}
+
+  /* ============ MANIFESTO ============ */
+  .manifesto{position:relative;padding:clamp(5rem,12vh,9rem) 0;overflow:hidden;}
+  .manifesto__bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.16;filter:saturate(1.1);}
+  .manifesto__veil{position:absolute;inset:0;background:linear-gradient(90deg,var(--ink) 0%,
+    rgba(7,12,28,0.55) 55%,var(--ink) 100%);}
+  .manifesto__inner{position:relative;z-index:2;max-width:780px;}
+  .manifesto blockquote{font-family:var(--display);font-weight:300;font-style:italic;
+    font-size:clamp(1.8rem,4vw,3.1rem);line-height:1.16;letter-spacing:-0.005em;margin:1.6rem 0;text-wrap:balance;}
+  .manifesto blockquote em{font-style:normal;color:var(--brass);}
+  .manifesto__sig{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.16em;color:var(--haze);}
+
+  /* ============ SIGNUP ============ */
+  .signup{padding:clamp(4rem,10vh,7rem) 0;}
+  .signup__inner{border:1px solid var(--line);padding:clamp(2rem,5vw,4rem);display:grid;
+    grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:center;position:relative;}
+  .signup__inner::before,.signup__inner::after{content:"";position:absolute;width:9px;height:9px;border:1px solid var(--brass);}
+  .signup__inner::before{top:-1px;left:-1px;border-right:0;border-bottom:0;}
+  .signup__inner::after{bottom:-1px;right:-1px;border-left:0;border-top:0;}
+  .signup h2{font-family:var(--display);font-weight:400;font-size:clamp(1.9rem,3.6vw,2.8rem);
+    line-height:1.04;margin:1rem 0;}
+  .signup p{color:var(--haze);max-width:40ch;}
+  .form{display:flex;flex-direction:column;gap:1rem;}
+  .form label{font-family:var(--mono);font-size:0.64rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--haze);}
+  .field{display:flex;gap:0.6rem;flex-wrap:wrap;}
+  .form input{flex:1;min-width:200px;background:transparent;border:1px solid var(--line);color:var(--star);
+    font-family:var(--body);font-size:1rem;padding:0.9rem 1rem;border-radius:2px;transition:border-color .3s ease;}
+  .form input::placeholder{color:#5f6b86;}
+  .form input:focus{outline:none;border-color:var(--brass);}
+  .form__note{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.06em;color:var(--haze);min-height:1em;}
+  .form__note.ok{color:var(--brass);}
+
+  /* ============ FOOTER ============ */
+  footer{border-top:1px solid var(--line-soft);padding:clamp(3rem,6vh,4.5rem) 0 2.5rem;}
+  .foot__grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2.5rem;align-items:start;}
+  .foot__brand .brand__mark{font-size:2rem;}
+  .foot__brand p{color:var(--haze);max-width:34ch;margin-top:1rem;font-size:0.95rem;}
+  .foot__col h4{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;
+    color:var(--brass);margin-bottom:1.1rem;}
+  .foot__col a{display:block;color:var(--haze);font-size:0.92rem;padding:0.28rem 0;transition:color .25s ease;}
+  .foot__col a:hover{color:var(--star);}
+  .foot__base{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-top:3rem;
+    padding-top:1.6rem;border-top:1px solid var(--line-soft);font-family:var(--mono);font-size:0.62rem;
+    letter-spacing:0.1em;color:var(--haze);}
+
+  /* ============ MODAL ============ */
+  .modal{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;padding:1.5rem;}
+  .modal.open{display:flex;}
+  .modal__scrim{position:absolute;inset:0;background:rgba(4,7,18,0.8);backdrop-filter:blur(6px);animation:fade .3s ease;}
+  .modal__panel{position:relative;z-index:1;width:min(640px,100%);background:var(--ink-2);border:1px solid var(--line);
+    border-radius:3px;padding:clamp(1.8rem,4vw,3rem);animation:rise .4s cubic-bezier(.2,.7,.2,1);max-height:90vh;overflow:auto;}
+  .modal__panel::before{content:"";position:absolute;top:-1px;left:-1px;width:12px;height:12px;
+    border:1px solid var(--brass);border-right:0;border-bottom:0;}
+  .modal__top{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:1.4rem;}
+  .modal__panel h3{font-family:var(--display);font-weight:400;font-size:clamp(1.9rem,4vw,2.8rem);
+    line-height:1.05;margin:0.6rem 0 1.2rem;text-wrap:balance;}
+  .modal__panel p{color:#cfd3e0;}
+  .modal__meta{display:flex;gap:1.4rem;flex-wrap:wrap;margin-top:1.6rem;font-family:var(--mono);
+    font-size:0.66rem;letter-spacing:0.1em;color:var(--haze);}
+  .modal__close{background:none;border:1px solid var(--line);color:var(--star);width:38px;height:38px;
+    border-radius:50%;font-size:1.1rem;cursor:pointer;line-height:1;transition:border-color .3s,color .3s;}
+  .modal__close:hover{border-color:var(--brass);color:var(--brass);}
+  .modal__actions{margin-top:2rem;padding-top:1.4rem;border-top:1px solid var(--line-soft);
+    display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+  /* ============ WARP TRANSITION ============ */
+  #warp{position:fixed;inset:0;z-index:100;display:none;pointer-events:none;}
+  #warp.on{display:block;pointer-events:auto;}
+  #warpCanvas{width:100%;height:100%;display:block;}
+  .land{animation:land .95s cubic-bezier(.2,.7,.2,1);}
+  @keyframes land{0%{opacity:0;transform:scale(1.06)}100%{opacity:1;transform:none}}
+
+  /* ============ REVEAL ============ */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1);}
+  .reveal.in{opacity:1;transform:none;}
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:980px){
+    .chart__grid{grid-template-columns:1fr;}
+    .vehicle__inner{grid-template-columns:1fr;}
+    .rocket-wrap{order:-1;}
+  }
+  @media (max-width:900px){
+    .featured__inner{grid-template-columns:1fr;}
+    .featured__figure{order:-1;}
+    .grid{grid-template-columns:1fr 1fr;}
+    .signup__inner{grid-template-columns:1fr;}
+    .foot__grid{grid-template-columns:1fr 1fr;}
+    .foot__brand{grid-column:1 / -1;}
+  }
+  @media (max-width:620px){
+    .nav-links{position:fixed;inset:0 0 0 auto;width:min(78vw,320px);background:rgba(9,15,34,0.97);
+      backdrop-filter:blur(14px);flex-direction:column;justify-content:center;gap:2.2rem;padding:2rem;
+      transform:translateX(100%);transition:transform .4s ease;border-left:1px solid var(--line);z-index:65;}
+    .nav-links.open{transform:none;}
+    .nav-links a{font-size:1rem;}
+    .menu-btn{display:inline-block;z-index:66;}
+    .grid{grid-template-columns:1fr;}
+    .foot__grid{grid-template-columns:1fr;}
+    .field{flex-direction:column;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important;transition:none !important;scroll-behavior:auto;}
+    .reveal{opacity:1;transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<canvas id="sky"></canvas>
+
+<div class="page">
+
+  <!-- ===== HEADER ===== -->
+  <header id="site-header">
+    <a class="brand" href="#top" aria-label="Under the Starlit Sky — home">
+      <span class="brand__mark">Under the <em>Starl<span class="dot-i">&#305;<span class="spark"><svg viewBox="0 0 24 24"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"/></svg></span></span>t</em> Sky</span>
+    </a>
+    <nav aria-label="Primary">
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu</button>
+      <div class="nav-links" id="navLinks">
+        <a href="#vehicle">Vehicle</a>
+        <a href="#chart">Star Chart</a>
+        <a href="#journal">Journal</a>
+        <a href="#horizon">Event Horizon</a>
+        <a href="#signup">Flight Log</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="top">
+    <img class="hero__img" src="assets/dome.png" alt="A domed ceiling painted as a celestial star map, warm lanterns glowing beneath a cold sky of constellations." />
+    <div class="hero__veil"></div>
+    <div class="hero__grid"></div>
+    <div class="hero__content">
+      <div class="hero__meta">
+        <span class="eyebrow">An illustrated journal</span>
+        <span class="coord">RA 05h 55m · Dec +07° 24′</span>
+      </div>
+      <h1>Under the<br><em>Starl<span class="dot-i">&#305;<span class="spark"><svg viewBox="0 0 24 24"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"/></svg></span></span>t</em> Sky</h1>
+      <p class="hero__slogan">Where art meets aerospace</p>
+    </div>
+    <div class="scrollcue" aria-hidden="true">Descend<span></span></div>
+  </section>
+
+  <div class="rule" aria-hidden="true">
+    <span class="coord rule__label">00 — The vehicle</span>
+    <span class="rule__ticks"></span>
+    <span class="coord rule__label">Sheet 04</span>
+  </div>
+
+  <!-- ===== VEHICLE / ROCKET SCHEMATIC ===== -->
+  <section class="vehicle" id="vehicle">
+    <div class="shell">
+      <div class="vehicle__inner">
+        <div class="rocket-wrap reveal">
+          <svg class="rocket-svg" viewBox="0 0 600 900" role="img" aria-label="Annotated blueprint elevation of a multi-stage launch vehicle.">
+            <line class="hair" x1="300" y1="30" x2="300" y2="870" stroke-dasharray="2 6"/>
+            <path class="brassf" d="M300,52 C 340,120 356,168 352,214 L 248,214 C 244,168 260,120 300,52 Z"/>
+            <line class="hair" x1="252" y1="176" x2="348" y2="176"/>
+            <path class="cut" d="M248,214 L352,214 L352,432 L248,432 Z"/>
+            <circle class="thin" cx="300" cy="300" r="26"/>
+            <circle class="hair" cx="300" cy="300" r="16"/>
+            <line class="hair" x1="274" y1="300" x2="326" y2="300"/>
+            <line class="hair" x1="300" y1="274" x2="300" y2="326"/>
+            <path class="fillp" d="M248,432 L352,432 L352,470 L248,470 Z"/>
+            <line class="hair" x1="248" y1="441" x2="352" y2="441"/>
+            <line class="hair" x1="248" y1="450" x2="352" y2="450"/>
+            <line class="hair" x1="248" y1="459" x2="352" y2="459"/>
+            <path class="cut" d="M248,470 L352,470 L352,656 L248,656 Z"/>
+            <line class="thin" x1="248" y1="520" x2="352" y2="520"/>
+            <line class="hair" x1="248" y1="590" x2="352" y2="590"/>
+            <rect class="thin" x="224" y="480" width="24" height="30"/>
+            <path class="hair" d="M228,485 h16 M228,491 h16 M228,497 h16 M228,503 h16 M232,482 v26 M238,482 v26"/>
+            <rect class="thin" x="352" y="480" width="24" height="30"/>
+            <path class="hair" d="M356,485 h16 M356,491 h16 M356,497 h16 M356,503 h16 M360,482 v26 M366,482 v26"/>
+            <path class="cut" d="M248,656 L352,656 L372,706 L228,706 Z"/>
+            <path class="fillp" d="M248,600 L196,690 L248,690 Z"/>
+            <path class="fillp" d="M352,600 L404,690 L352,690 Z"/>
+            <path class="cut" d="M244,706 C 240,742 232,760 224,782 L 268,782 C 262,760 260,742 262,706 Z"/>
+            <path class="cut" d="M282,706 C 280,742 276,760 270,786 L 330,786 C 324,760 320,742 318,706 Z"/>
+            <path class="cut" d="M338,706 C 340,742 348,760 356,782 L 376,782 C 368,760 360,742 356,706 Z"/>
+            <path class="hair" d="M232,760 L260,760 M276,764 L324,764 M340,760 L368,760"/>
+            <path class="hair" d="M300,790 L292,838 M300,790 L308,838 M285,788 L280,824 M315,788 L320,824" stroke-dasharray="1 5"/>
+            <g class="dot">
+              <circle cx="256" cy="240" r="1.6"/><circle cx="344" cy="240" r="1.6"/>
+              <circle cx="256" cy="500" r="1.6"/><circle cx="344" cy="500" r="1.6"/>
+              <circle cx="256" cy="630" r="1.6"/><circle cx="344" cy="630" r="1.6"/>
+            </g>
+            <line class="thin" x1="150" y1="52" x2="150" y2="782"/>
+            <path class="thin" d="M146,58 L150,50 L154,58 M146,776 L150,784 L154,776"/>
+            <line class="hair" x1="150" y1="52" x2="248" y2="88"/>
+            <line class="hair" x1="150" y1="782" x2="228" y2="782"/>
+            <text class="lblsm" transform="rotate(-90 138 420)" x="138" y="420" text-anchor="middle">TOTAL HEIGHT · 70.0 m</text>
+            <line class="lead" x1="330" y1="120" x2="470" y2="120"/><text class="brasslbl" x="476" y="124">PAYLOAD FAIRING</text>
+            <line class="lead" x1="352" y1="300" x2="470" y2="300"/><text class="lbl" x="476" y="304">AVIONICS · GUIDANCE</text>
+            <line class="lead" x1="352" y1="380" x2="470" y2="380"/><text class="lbl" x="476" y="384">LOX TANK</text>
+            <line class="lead" x1="352" y1="451" x2="470" y2="451"/><text class="lbl" x="476" y="455">STAGE SEPARATION</text>
+            <line class="lead" x1="352" y1="560" x2="470" y2="560"/><text class="lbl" x="476" y="564">RP-1 TANK</text>
+            <line class="lead" x1="404" y1="672" x2="470" y2="672"/><text class="lbl" x="476" y="676">STABILISER FIN</text>
+            <line class="lead" x1="300" y1="746" x2="430" y2="746"/><text class="lbl" x="436" y="750">9 × MERLIN 1D</text>
+            <rect class="thin" x="30" y="792" width="200" height="66"/>
+            <line class="hair" x1="30" y1="814" x2="230" y2="814"/>
+            <line class="hair" x1="30" y1="836" x2="230" y2="836"/>
+            <line class="hair" x1="150" y1="814" x2="150" y2="858"/>
+            <text class="lblsm" x="38" y="807">UNDER THE STARLIT SKY</text>
+            <text class="lblsm" x="38" y="829">ELEVATION</text>
+            <text class="lblsm" x="158" y="829">SHT 04</text>
+            <text class="lblsm" x="38" y="851">SCALE 1:200</text>
+            <text class="lblsm" x="158" y="851">REV. A</text>
+            <line class="thin" x1="392" y1="838" x2="470" y2="838"/>
+            <line class="hair" x1="392" y1="833" x2="392" y2="843"/>
+            <line class="hair" x1="418" y1="835" x2="418" y2="841"/>
+            <line class="hair" x1="444" y1="835" x2="444" y2="841"/>
+            <line class="hair" x1="470" y1="833" x2="470" y2="843"/>
+            <text class="lblsm" x="392" y="856">0</text>
+            <text class="lblsm" x="462" y="856">20 m</text>
+          </svg>
+        </div>
+        <div class="vehicle__text reveal">
+          <span class="eyebrow">The vehicle</span>
+          <h2>A drawing that learned to fly.</h2>
+          <p>Before it was thrust and telemetry, it was ink — a line of longing pulled taut
+             against gravity. We keep the blueprint here as a reminder that every machine
+             leaving the ground was first an act of imagination, drafted by hand, annotated
+             in the margins, and believed in long before it burned.</p>
+          <div class="spec">
+            <div><span>Configuration</span><b>Two-stage, LOX / RP-1</b></div>
+            <div><span>Height</span><b>70.0 m</b></div>
+            <div><span>First-stage thrust</span><b>7,600 kN</b></div>
+            <div><span>Payload to LEO</span><b>22.8 t</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule" aria-hidden="true">
+    <span class="coord rule__label">01 — The star chart</span>
+    <span class="rule__ticks"></span>
+    <span class="coord rule__label" id="ruleCount">— entries</span>
+  </div>
+
+  <!-- ===== STAR CHART ===== -->
+  <section class="chart" id="chart">
+    <div class="shell">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Every post is a star</span>
+        <h2>The Star Chart</h2>
+      </div>
+      <div class="chart__grid">
+        <div class="chart__map reveal" id="mapWrap">
+          <svg id="constellation" viewBox="0 0 1000 640" preserveAspectRatio="xMidYMid meet"
+               role="group" aria-label="Interactive constellation. Each star is a post; select one to read it."></svg>
+          <span class="chart__count" id="starCount"></span>
+          <span class="chart__hint">Hover a star for its title · click to read</span>
+        </div>
+        <div class="compose reveal">
+          <span class="eyebrow">Chart a new star</span>
+          <h3>Write the next entry</h3>
+          <p>Add a post and watch it take its place in the sky, linked to its nearest neighbour.
+             Your chart is saved in this browser.</p>
+          <div class="field-group">
+            <div>
+              <label for="pTitle">Title</label>
+              <input id="pTitle" type="text" maxlength="60" placeholder="e.g. The Weight of Light" />
+            </div>
+            <div>
+              <label for="pCat">Constellation</label>
+              <select id="pCat">
+                <option>Celestial Cartography</option>
+                <option>Field Notes</option>
+                <option>Deep Field</option>
+                <option>Objects</option>
+                <option>Orbital Sketches</option>
+              </select>
+            </div>
+            <div>
+              <label for="pExcerpt">A line or two</label>
+              <textarea id="pExcerpt" maxlength="220" placeholder="What is this dispatch about?"></textarea>
+            </div>
+          </div>
+          <div class="compose__foot">
+            <button class="btn" id="addStar">Chart the star</button>
+            <button class="linkbtn" id="resetChart">Reset chart</button>
+          </div>
+          <p class="compose__note" id="composeNote" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule" aria-hidden="true">
+    <span class="coord rule__label">02 — Latest transmission</span>
+    <span class="rule__ticks"></span>
+    <span class="coord rule__label">Deep field</span>
+  </div>
+
+  <!-- ===== FEATURED ===== -->
+  <section class="featured">
+    <div class="shell">
+      <div class="featured__inner">
+        <div class="featured__text reveal">
+          <span class="tag">Deep Field</span>
+          <h2>Ninety Minutes to Sunrise</h2>
+          <p>From the Cupola, the planet arrives every hour and a half — a full sunrise timed
+             like a heartbeat. This is a meditation on framing: how seven panes of glass turn
+             a working laboratory into the most quietly composed room ever built, and what a
+             photographer learns from an engineer's window.</p>
+          <div class="read__by"><span>By the Editors</span><span>·</span><span>12 min read</span></div>
+          <button class="read" id="featuredRead">Read the dispatch <span aria-hidden="true">→</span></button>
+        </div>
+        <figure class="featured__figure reveal">
+          <img src="assets/cupola.png" alt="The interior of the ISS Cupola looking down through its windows at the blue Earth, with a docked cargo module and solar arrays visible." />
+          <div class="frameline"></div>
+          <figcaption>Fig. 01 — Observation cupola, low Earth orbit</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule" aria-hidden="true">
+    <span class="coord rule__label">03 — The journal</span>
+    <span class="rule__ticks"></span>
+    <span class="coord rule__label">The atlas</span>
+  </div>
+
+  <!-- ===== JOURNAL GRID ===== -->
+  <section class="journal" id="journal">
+    <div class="shell">
+      <div class="journal__head reveal">
+        <div>
+          <span class="eyebrow">Recent writing</span>
+          <h2>The Journal</h2>
+        </div>
+        <span class="coord" id="journalCount">Filed under: art · orbit · instruments</span>
+      </div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <!-- ===== EVENT HORIZON ===== -->
+  <section class="horizon" id="horizon">
+    <canvas id="blackhole"></canvas>
+    <div class="horizon__content">
+      <span class="eyebrow">Event horizon</span>
+      <h2>Where even light<br>keeps a <em>diary</em>.</h2>
+      <p>A black hole doesn't erase the stars behind it — it bends them into a ring, a lens
+         that lets you see around the dark. Move your cursor to warp the field.</p>
+      <p class="horizon__hint">Gravitational lensing · live simulation</p>
+    </div>
+  </section>
+
+  <!-- ===== MANIFESTO ===== -->
+  <section class="manifesto">
+    <img class="manifesto__bg" src="assets/blueprint.png" alt="" aria-hidden="true" />
+    <div class="manifesto__veil"></div>
+    <div class="shell">
+      <div class="manifesto__inner reveal">
+        <span class="eyebrow">The thesis</span>
+        <blockquote>A rocket is a drawing that learned to fly. A constellation is a machine for
+          <em>wonder</em>. We keep the two in the same notebook.</blockquote>
+        <p class="manifesto__sig">— Editorial note, Vol. I</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule" aria-hidden="true">
+    <span class="coord rule__label">04 — Correspondence</span>
+    <span class="rule__ticks"></span>
+    <span class="coord rule__label">Open channel</span>
+  </div>
+
+  <!-- ===== SIGNUP ===== -->
+  <section class="signup" id="signup">
+    <div class="shell">
+      <div class="signup__inner reveal">
+        <div>
+          <span class="eyebrow">The flight log</span>
+          <h2>New dispatches, once a lunar month.</h2>
+          <p>Essays on painted skies, orbital diagrams, and the strange beauty of machines
+             that leave the ground. No noise between transmissions.</p>
+        </div>
+        <div class="form" role="group" aria-label="Subscribe to the newsletter">
+          <label for="email">Enter coordinates</label>
+          <div class="field">
+            <input id="email" type="email" placeholder="you@somewhere.earth" autocomplete="email" />
+            <button class="btn" id="subscribe">Join the log</button>
+          </div>
+          <p class="form__note" id="note" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="shell">
+      <div class="foot__grid">
+        <div class="foot__brand">
+          <span class="brand__mark">Under the <em>Starl<span class="dot-i">&#305;<span class="spark"><svg viewBox="0 0 24 24"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"/></svg></span></span>t</em> Sky</span>
+          <p>An illustrated journal at the meeting point of art and aerospace — where a painted
+             ceiling and a launch trajectory belong to the same story.</p>
+        </div>
+        <div class="foot__col">
+          <h4>Sections</h4>
+          <a href="#vehicle">Vehicle</a>
+          <a href="#chart">Star Chart</a>
+          <a href="#journal">Journal</a>
+          <a href="#horizon">Event Horizon</a>
+        </div>
+        <div class="foot__col">
+          <h4>Elsewhere</h4>
+          <a href="#">Instagram</a>
+          <a href="#">Field notes / RSS</a>
+          <a href="#">About the atlas</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+      <div class="foot__base">
+        <span>© <span id="year"></span> Under the Starlit Sky</span>
+        <span>Where art meets aerospace · 51.4769° N, 0.0005° W</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<!-- ===== MODAL ===== -->
+<div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="modal__scrim" data-close></div>
+  <div class="modal__panel">
+    <div class="modal__top">
+      <span class="tag" id="mCat">Category</span>
+      <button class="modal__close" id="mClose" data-close aria-label="Close">✕</button>
+    </div>
+    <span class="coord" id="mCoord"></span>
+    <h3 id="mTitle">Title</h3>
+    <p id="mBody"></p>
+    <div class="modal__meta"><span id="mNo"></span><span id="mRead"></span><span>Under the Starlit Sky</span></div>
+    <div class="modal__actions">
+      <span class="coord">Draft dispatch · not yet published</span>
+      <button class="linkbtn" id="mRemove" style="display:none;">Remove this star</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== WARP OVERLAY ===== -->
+<div id="warp" aria-hidden="true"><canvas id="warpCanvas"></canvas></div>
+
+<script>
+/* ---------- year ---------- */
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ---------- header + menu ---------- */
+const header = document.getElementById('site-header');
+const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 40);
+onScroll(); addEventListener('scroll', onScroll, { passive:true });
+const menuBtn = document.getElementById('menuBtn');
+const navLinks = document.getElementById('navLinks');
+function closeMenu(){ navLinks.classList.remove('open'); menuBtn.setAttribute('aria-expanded', false); menuBtn.textContent='Menu'; }
+menuBtn.addEventListener('click', () => {
+  const open = navLinks.classList.toggle('open');
+  menuBtn.setAttribute('aria-expanded', open); menuBtn.textContent = open ? 'Close' : 'Menu';
+});
+
+/* ---------- reveal ---------- */
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const io = new IntersectionObserver((es) => {
+  es.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold:0.14 });
+document.querySelectorAll('.reveal').forEach(el => reduce ? el.classList.add('in') : io.observe(el));
+
+/* ========================================================
+   POSTS — single source of truth for chart + grid
+======================================================== */
+const STORE_KEY = 'uss_starchart_v2';
+const SEED = [
+  { id:1, title:'Twelve Houses, One Ceiling', cat:'Celestial Cartography', minutes:7,
+    excerpt:'How a single dome holds the whole zodiac, and why we keep painting the heavens indoors long after we learned to fly into them.', x:0.18, y:0.34, seed:true },
+  { id:2, title:'The Colour of Home', cat:'Deep Field', minutes:6,
+    excerpt:'Every astronaut describes the same blue and reaches for a different word. On the vocabulary that fails at the edge of the atmosphere.', x:0.31, y:0.60, seed:true },
+  { id:3, title:'The Grammar of Orbits', cat:'Field Notes', minutes:9,
+    excerpt:'A Venus flyby, a Jupiter assist, a launch window drawn as a curve. Reading a trajectory diagram the way you would read a line of music.', x:0.44, y:0.30, seed:true },
+  { id:4, title:'Brass Against the Cold', cat:'Objects', minutes:8,
+    excerpt:'Sextants, orreries, astrolabes — the instruments we built to measure the sky were sculpture first, and the makers knew it.', x:0.58, y:0.56, seed:true },
+  { id:5, title:'Blueprint as Poem', cat:'Field Notes', minutes:5,
+    excerpt:'The exploded schematic of a shuttle was never meant to be beautiful. It is anyway. On the accidental art of engineering drawings.', x:0.72, y:0.32, seed:true },
+  { id:6, title:'The Cartography of Longing', cat:'Celestial Cartography', minutes:10,
+    excerpt:'What a hand-painted ceiling of constellations tells us about the oldest human urge — to draw lines between distant lights and call it a map.', x:0.84, y:0.60, seed:true }
+];
+let posts = loadPosts();
+function loadPosts(){
+  try{ const raw = localStorage.getItem(STORE_KEY);
+    if (raw){ const p = JSON.parse(raw); if (Array.isArray(p) && p.length) return p; } }catch(e){}
+  return SEED.map(p => ({...p}));
+}
+function savePosts(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(posts)); }catch(e){} }
+function nextId(){ return posts.reduce((m,p)=>Math.max(m,p.id),0) + 1; }
+function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
+function coordOf(p){
+  const raH = Math.floor(p.x*24), raM = Math.floor((p.x*24 % 1)*60);
+  const dec = ((0.5 - p.y) * 120); const sign = dec >= 0 ? '+' : '−';
+  return `RA ${String(raH).padStart(2,'0')}h ${String(raM).padStart(2,'0')}m · Dec ${sign}${Math.abs(dec).toFixed(0)}°`;
+}
+
+/* ---------- constellation ---------- */
+const SVGNS = 'http://www.w3.org/2000/svg';
+const svg = document.getElementById('constellation');
+const VBW = 1000, VBH = 640;
+let bgLayer, linkLayer, nodeLayer;
+function buildLayers(){
+  svg.innerHTML = '';
+  bgLayer=document.createElementNS(SVGNS,'g'); linkLayer=document.createElementNS(SVGNS,'g'); nodeLayer=document.createElementNS(SVGNS,'g');
+  svg.append(bgLayer, linkLayer, nodeLayer);
+  for (let i=0;i<130;i++){
+    const c=document.createElementNS(SVGNS,'circle');
+    c.setAttribute('cx',(Math.random()*VBW).toFixed(1)); c.setAttribute('cy',(Math.random()*VBH).toFixed(1));
+    c.setAttribute('r',(Math.random()*1.1+0.3).toFixed(2)); c.setAttribute('fill','#cfd6e6');
+    c.setAttribute('opacity',(Math.random()*0.4+0.08).toFixed(2)); bgLayer.appendChild(c);
+  }
+}
+function px(p){ return { x:70 + p.x*(VBW-140), y:50 + p.y*(VBH-110) }; }
+function connections(){
+  const links=[];
+  for (let i=1;i<posts.length;i++){
+    let best=-1, bd=Infinity; const a=px(posts[i]);
+    for (let j=0;j<i;j++){ const b=px(posts[j]); const d=(a.x-b.x)**2+(a.y-b.y)**2; if(d<bd){bd=d;best=j;} }
+    if(best>=0) links.push([best,i]);
+  }
+  return links;
+}
+function renderConstellation(spawnId){
+  buildLayers();
+  connections().forEach(([i,j]) => {
+    const a=px(posts[i]), b=px(posts[j]);
+    const line=document.createElementNS(SVGNS,'line');
+    line.setAttribute('x1',a.x); line.setAttribute('y1',a.y); line.setAttribute('x2',b.x); line.setAttribute('y2',b.y);
+    line.setAttribute('class','clink');
+    if(spawnId && posts[j].id===spawnId){ const len=Math.hypot(b.x-a.x,b.y-a.y);
+      line.style.setProperty('--len',len); line.setAttribute('stroke-dasharray',len); if(!reduce) line.classList.add('new'); }
+    linkLayer.appendChild(line);
+  });
+  const maxId=posts.reduce((m,p)=>Math.max(m,p.id),0);
+  posts.forEach((p,idx) => {
+    const pos=px(p); const g=document.createElementNS(SVGNS,'g');
+    g.setAttribute('class','node'+(p.id===maxId?' newest':'')+(p.id===spawnId?' spawn':''));
+    g.setAttribute('tabindex','0'); g.setAttribute('role','button'); g.setAttribute('aria-label','Read: '+p.title); g.dataset.id=p.id;
+    const glow=document.createElementNS(SVGNS,'circle'); glow.setAttribute('class','glow');
+    glow.setAttribute('cx',pos.x); glow.setAttribute('cy',pos.y); glow.setAttribute('r',p.id===maxId?16:12);
+    const core=document.createElementNS(SVGNS,'circle'); core.setAttribute('class','core');
+    core.setAttribute('cx',pos.x); core.setAttribute('cy',pos.y); core.setAttribute('r',p.id===maxId?5.5:4);
+    const num=document.createElementNS(SVGNS,'text'); num.setAttribute('class','num');
+    num.setAttribute('x',pos.x); num.setAttribute('y',pos.y-14); num.textContent=String(idx+1).padStart(2,'0');
+    const label=document.createElementNS(SVGNS,'text'); label.setAttribute('class','label');
+    label.setAttribute('x',pos.x); label.setAttribute('y',pos.y+26); label.textContent=p.title;
+    g.append(glow,core,num,label);
+    const open=()=>openModal(p,g);
+    g.addEventListener('click',open);
+    g.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); open(); } });
+    nodeLayer.appendChild(g);
+  });
+  const n=posts.length;
+  document.getElementById('starCount').textContent=n+(n===1?' STAR':' STARS');
+  document.getElementById('ruleCount').textContent=n+' entries';
+}
+
+/* ---------- grid ---------- */
+const grid = document.getElementById('grid');
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function renderGrid(){
+  grid.innerHTML='';
+  const ordered=[...posts].sort((a,b)=>b.id-a.id);
+  ordered.forEach(p => {
+    const b=document.createElement('button'); b.className='card';
+    b.innerHTML='<div class="card__top"><span class="card__no">№ '+String(p.id).padStart(3,'0')+
+      '</span><span class="card__cat">'+esc(p.cat)+'</span></div><h3>'+esc(p.title)+'</h3><p>'+
+      esc(p.excerpt||'')+'</p><div class="card__foot"><span>Read</span><span class="arrow">→</span></div>';
+    b.addEventListener('click',()=>openModal(p,b)); grid.appendChild(b);
+  });
+  document.getElementById('journalCount').textContent=ordered.length+' entries in the atlas';
+}
+
+/* ---------- modal ---------- */
+const modal=document.getElementById('modal'); let lastFocus=null, activeId=null;
+function openModal(p, trigger){
+  activeId=p.id; lastFocus=trigger||null;
+  document.getElementById('mCat').textContent=p.cat;
+  document.getElementById('mCoord').textContent=coordOf(p);
+  document.getElementById('mTitle').textContent=p.title;
+  document.getElementById('mBody').textContent=p.excerpt||'This dispatch is still being written. The star is charted; the words are on their way.';
+  document.getElementById('mNo').textContent='№ '+String(p.id).padStart(3,'0');
+  document.getElementById('mRead').textContent=(p.minutes||Math.max(4,Math.round((p.excerpt||'').length/22)))+' min read';
+  document.getElementById('mRemove').style.display=p.seed?'none':'inline-block';
+  modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
+  document.getElementById('mClose').focus(); document.body.style.overflow='hidden';
+}
+function closeModal(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true');
+  document.body.style.overflow=''; if(lastFocus&&lastFocus.focus) lastFocus.focus(); }
+modal.addEventListener('click',e=>{ if(e.target.dataset.close!==undefined) closeModal(); });
+addEventListener('keydown',e=>{ if(e.key==='Escape'&&modal.classList.contains('open')) closeModal(); });
+document.getElementById('mRemove').addEventListener('click',()=>{
+  posts=posts.filter(p=>p.id!==activeId); savePosts(); renderConstellation(); renderGrid(); closeModal(); });
+document.getElementById('featuredRead').addEventListener('click',function(){
+  openModal({ id:0, title:'Ninety Minutes to Sunrise', cat:'Deep Field', minutes:12,
+    excerpt:'From the Cupola, the planet arrives every hour and a half — a full sunrise timed like a heartbeat. A meditation on framing: how seven panes of glass turn a working laboratory into the most quietly composed room ever built.',
+    x:0.5, y:0.4, seed:true }, this);
+});
+
+/* ---------- compose ---------- */
+const note=document.getElementById('composeNote');
+function setNote(msg,ok){ note.textContent=msg; note.classList.toggle('ok',!!ok); }
+document.getElementById('addStar').addEventListener('click',()=>{
+  const title=document.getElementById('pTitle').value.trim();
+  const cat=document.getElementById('pCat').value;
+  const excerpt=document.getElementById('pExcerpt').value.trim();
+  if(!title){ setNote('Give the star a name before you chart it.',false); document.getElementById('pTitle').focus(); return; }
+  const anchor=posts.length?posts[posts.length-1]:{x:0.5,y:0.4};
+  let nx,ny,tries=0;
+  do{ const ang=Math.random()*Math.PI*2, dist=0.11+Math.random()*0.10;
+    nx=clamp(anchor.x+Math.cos(ang)*dist,0.07,0.93); ny=clamp(anchor.y+Math.sin(ang)*dist*0.9,0.10,0.90); tries++;
+  } while(tries<12 && posts.some(p=>Math.hypot(p.x-nx,p.y-ny)<0.07));
+  const post={ id:nextId(), title, cat, excerpt, minutes:Math.max(4,Math.round(excerpt.length/22)||5), x:nx, y:ny };
+  posts.push(post); savePosts(); renderConstellation(post.id); renderGrid();
+  document.getElementById('pTitle').value=''; document.getElementById('pExcerpt').value='';
+  setNote('“'+title+'” charted as star №'+String(post.id).padStart(3,'0')+'.',true);
+  document.getElementById('pTitle').focus();
+});
+document.getElementById('resetChart').addEventListener('click',()=>{
+  posts=SEED.map(p=>({...p})); savePosts(); renderConstellation(); renderGrid();
+  setNote('Chart reset to the original six.',true);
+});
+
+/* ---------- newsletter ---------- */
+const nnote=document.getElementById('note'), email=document.getElementById('email');
+document.getElementById('subscribe').addEventListener('click',()=>{
+  const v=email.value.trim();
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){ nnote.textContent='That address won\u2019t reach us — check the format.'; nnote.classList.remove('ok'); email.focus(); return; }
+  nnote.textContent='Logged. Watch the sky next new moon.'; nnote.classList.add('ok'); email.value='';
+});
+
+/* ---------- initial render ---------- */
+renderConstellation(); renderGrid();
+
+/* ========================================================
+   AMBIENT SKY
+======================================================== */
+(function(){
+  const canvas=document.getElementById('sky'), ctx=canvas.getContext('2d');
+  let w,h,stars=[], dpr=Math.min(devicePixelRatio||1,2);
+  const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function resize(){
+    w=canvas.width=Math.floor(innerWidth*dpr); h=canvas.height=Math.floor(innerHeight*dpr);
+    canvas.style.width=innerWidth+'px'; canvas.style.height=innerHeight+'px';
+    const count=Math.round(innerWidth*innerHeight/12000); stars=[];
+    for(let i=0;i<count;i++) stars.push({x:Math.random()*w,y:Math.random()*h,r:(Math.random()*1.3+0.3)*dpr,base:Math.random()*0.5+0.25,tw:Math.random()*6.28,sp:Math.random()*0.9+0.3});
+  }
+  const ld=118*dpr;
+  function frame(t){
+    ctx.clearRect(0,0,w,h); ctx.lineWidth=dpr;
+    for(let i=0;i<stars.length;i++){ const a=stars[i];
+      for(let j=i+1;j<stars.length;j++){ const b=stars[j]; const dx=a.x-b.x,dy=a.y-b.y,d2=dx*dx+dy*dy;
+        if(d2<ld*ld){ const al=(1-Math.sqrt(d2)/ld)*0.14; ctx.strokeStyle='rgba(134,171,212,'+al.toFixed(3)+')';
+          ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); } } }
+    for(const s of stars){ const tw=rm?s.base:s.base+Math.sin(t*0.001*s.sp+s.tw)*0.22;
+      ctx.beginPath(); ctx.fillStyle='rgba(236,231,215,'+Math.max(0.05,tw).toFixed(3)+')'; ctx.arc(s.x,s.y,s.r,0,6.283); ctx.fill(); }
+    if(!rm) requestAnimationFrame(frame);
+  }
+  resize(); addEventListener('resize',()=>{clearTimeout(window.__rz);window.__rz=setTimeout(resize,200);},{passive:true});
+  rm?frame(0):requestAnimationFrame(frame);
+})();
+
+/* ========================================================
+   BLACK HOLE + LENSING
+======================================================== */
+(function(){
+  const canvas=document.getElementById('blackhole'), ctx=canvas.getContext('2d');
+  const sectionEl=document.getElementById('horizon');
+  const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let w,h,dpr=Math.min(devicePixelRatio||1,2), stars=[]; let cx,cy,tx,ty,R; let running=false,t0=0;
+  function resize(){
+    const r=sectionEl.getBoundingClientRect();
+    w=canvas.width=Math.floor(r.width*dpr); h=canvas.height=Math.floor(r.height*dpr);
+    canvas.style.width=r.width+'px'; canvas.style.height=r.height+'px';
+    R=Math.min(w,h)*0.11; cx=tx=w*0.62; cy=ty=h*0.46;
+    const count=Math.round(r.width*r.height/6500); stars=[];
+    for(let i=0;i<count;i++) stars.push({x:Math.random()*w,y:Math.random()*h,r:(Math.random()*1.4+0.4)*dpr,b:Math.random()*0.6+0.25,tw:Math.random()*6.28,sp:Math.random()*1.1+0.3});
+  }
+  function drawStars(t){
+    const k=R*R*1.9;
+    for(const s of stars){
+      let dx=s.x-cx,dy=s.y-cy,r=Math.hypot(dx,dy); if(r<1)r=1; if(r<R*0.55) continue;
+      const ar=r+k/r, ux=dx/r, uy=dy/r, ax=cx+ux*ar, ay=cy+uy*ar;
+      const ring=Math.exp(-Math.pow((r-R*1.35)/(R*0.5),2));
+      const tw=rm?s.b:s.b+Math.sin(t*0.001*s.sp+s.tw)*0.22;
+      const a=Math.min(1,tw*0.7+ring*0.7);
+      ctx.beginPath(); ctx.fillStyle='rgba(236,231,215,'+a.toFixed(3)+')'; ctx.arc(ax,ay,s.r*(1+ring*0.8),0,6.283); ctx.fill();
+    }
+  }
+  function drawDisk(t){
+    const rot=rm?0:t*0.00016; ctx.save(); ctx.translate(cx,cy); ctx.rotate(-0.42);
+    ctx.save(); ctx.scale(1,0.30);
+    for(let i=0;i<3;i++){ const rr=R*(2.6-i*0.55); const g=ctx.createLinearGradient(-rr,0,rr,0); const base=0.16-i*0.03;
+      g.addColorStop(0,'rgba(255,227,176,'+(base*1.6).toFixed(3)+')');
+      g.addColorStop(0.5,'rgba(214,170,91,'+base.toFixed(3)+')');
+      g.addColorStop(1,'rgba(120,80,30,'+(base*0.5).toFixed(3)+')');
+      ctx.beginPath(); ctx.strokeStyle=g; ctx.lineWidth=R*0.5; ctx.arc(0,0,rr,0,6.283); ctx.stroke(); }
+    ctx.restore();
+    for(let a=0;a<24;a++){ const ang=rot+a/24*6.283; ctx.save(); ctx.rotate(ang); ctx.scale(1,0.30);
+      ctx.beginPath(); ctx.strokeStyle='rgba(255,220,170,0.05)'; ctx.lineWidth=1.2; ctx.arc(0,0,R*2.1,0,0.5); ctx.stroke(); ctx.restore(); }
+    ctx.restore();
+  }
+  function frame(t){
+    if(!t0)t0=t; const tt=t-t0;
+    cx+=(tx-cx)*0.06; cy+=(ty-cy)*0.06;
+    ctx.clearRect(0,0,w,h); drawStars(tt); drawDisk(tt);
+    const sg=ctx.createRadialGradient(cx,cy,R*0.5,cx,cy,R*1.15);
+    sg.addColorStop(0,'#000'); sg.addColorStop(0.82,'#000'); sg.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.beginPath(); ctx.fillStyle=sg; ctx.arc(cx,cy,R*1.15,0,6.283); ctx.fill();
+    ctx.beginPath(); ctx.fillStyle='#000'; ctx.arc(cx,cy,R,0,6.283); ctx.fill();
+    ctx.beginPath(); ctx.strokeStyle='rgba(255,236,200,0.9)'; ctx.lineWidth=Math.max(1.4,R*0.035); ctx.arc(cx,cy,R*1.03,0,6.283); ctx.stroke();
+    ctx.beginPath(); ctx.strokeStyle='rgba(214,170,91,0.35)'; ctx.lineWidth=R*0.12; ctx.arc(cx,cy,R*1.08,0,6.283); ctx.stroke();
+    ctx.save(); ctx.translate(cx,cy); ctx.rotate(-0.42);
+    ctx.beginPath(); ctx.strokeStyle='rgba(255,228,180,0.5)'; ctx.lineWidth=Math.max(1.5,R*0.06);
+    ctx.ellipse(0,0,R*2.35,R*0.9,0,Math.PI*1.03,Math.PI*1.97); ctx.stroke(); ctx.restore();
+    if(running&&!rm) requestAnimationFrame(frame);
+  }
+  function start(){ if(running)return; running=true; t0=0; requestAnimationFrame(frame); }
+  function stop(){ running=false; }
+  resize();
+  addEventListener('resize',()=>{clearTimeout(window.__bh);window.__bh=setTimeout(()=>{resize();if(rm)frame(0);},200);},{passive:true});
+  sectionEl.addEventListener('mousemove',e=>{ const r=sectionEl.getBoundingClientRect(); tx=(e.clientX-r.left)*dpr; ty=(e.clientY-r.top)*dpr; });
+  sectionEl.addEventListener('mouseleave',()=>{ tx=w*0.62; ty=h*0.46; });
+  if(rm){ frame(0); }
+  else{ const vis=new IntersectionObserver(es=>es.forEach(x=>x.isIntersecting?start():stop()),{threshold:0.05}); vis.observe(sectionEl); }
+})();
+
+/* ========================================================
+   WARP TRANSITION — "sucked into a black hole" between pages
+======================================================== */
+const warp = (function(){
+  const el=document.getElementById('warp'), c=document.getElementById('warpCanvas'), ctx=c.getContext('2d');
+  const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let dpr=Math.min(devicePixelRatio||1,2), w,h,cx,cy, parts=[], busy=false;
+  function size(){ w=c.width=Math.floor(innerWidth*dpr); h=c.height=Math.floor(innerHeight*dpr);
+    c.style.width=innerWidth+'px'; c.style.height=innerHeight+'px'; cx=w/2; cy=h/2; }
+  function seed(){ const maxR=Math.hypot(w,h)/2*1.15; parts=[];
+    for(let i=0;i<210;i++) parts.push({ang:Math.random()*6.283, rad:maxR*(0.12+Math.random()*0.9),
+      sp:0.6+Math.random()*1.5, sz:(Math.random()*1.7+0.5)*dpr, brass:Math.random()<0.22}); }
+  const easeIn=t=>t*t*t, easeOut=t=>1-Math.pow(1-t,3);
+  function hole(Rr,ring){ if(Rr<=0) return;
+    const g=ctx.createRadialGradient(cx,cy,Rr*0.4,cx,cy,Rr*1.5);
+    g.addColorStop(0,'#000'); g.addColorStop(0.7,'#000'); g.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.beginPath(); ctx.fillStyle=g; ctx.arc(cx,cy,Rr*1.5,0,6.283); ctx.fill();
+    ctx.beginPath(); ctx.fillStyle='#000'; ctx.arc(cx,cy,Rr,0,6.283); ctx.fill();
+    ctx.beginPath(); ctx.strokeStyle='rgba(255,232,190,'+(0.9*ring)+')'; ctx.lineWidth=Math.max(1.5,Rr*0.05); ctx.arc(cx,cy,Rr*1.02,0,6.283); ctx.stroke();
+    ctx.beginPath(); ctx.strokeStyle='rgba(214,170,91,'+(0.45*ring)+')'; ctx.lineWidth=Rr*0.16; ctx.arc(cx,cy,Rr*1.08,0,6.283); ctx.stroke();
+  }
+  function streak(pt,rInner,rOuter){ const a=pt.ang;
+    const xi=cx+Math.cos(a)*rInner, yi=cy+Math.sin(a)*rInner, xo=cx+Math.cos(a)*rOuter, yo=cy+Math.sin(a)*rOuter;
+    ctx.strokeStyle=pt.brass?'rgba(214,170,91,0.85)':'rgba(236,231,215,0.82)'; ctx.lineWidth=pt.sz;
+    ctx.beginPath(); ctx.moveTo(xo,yo); ctx.lineTo(xi,yi); ctx.stroke(); }
+  function go(hash){
+    const target=document.querySelector(hash); if(!target) return;
+    if(rm){ target.scrollIntoView(); history.replaceState(null,'',hash); return; }
+    if(busy) return; busy=true;
+    size(); seed(); el.classList.add('on'); el.style.opacity='1'; document.body.style.overflow='hidden';
+    const holeMax=Math.min(w,h)*0.17;
+    const T1=780,HOLD=140,T2=820; const start=performance.now(); let jumped=false, rot=0;
+    function jumpNow(){ const y=target.getBoundingClientRect().top+scrollY-56; scrollTo({top:y,behavior:'auto'});
+      history.replaceState(null,'',hash); target.classList.add('land'); setTimeout(()=>target.classList.remove('land'),950); }
+    function loop(now){
+      const t=now-start; rot+=0.02; ctx.clearRect(0,0,w,h);
+      if(t<=T1){ const p=easeIn(t/T1);
+        ctx.fillStyle='rgba(4,7,18,'+Math.min(1,p*1.05)+')'; ctx.fillRect(0,0,w,h);
+        for(const pt of parts){ const r1=pt.rad*(1-p), r2=pt.rad*(1-easeIn(Math.min(1,t/T1+0.05)));
+          pt.ang+=rot*0.0002*pt.sp; streak(pt,r1,r2); }
+        hole(holeMax*p,p); requestAnimationFrame(loop);
+      } else if(t<=T1+HOLD){
+        ctx.fillStyle='#040712'; ctx.fillRect(0,0,w,h); hole(holeMax,1);
+        if(!jumped){ jumped=true; jumpNow(); } requestAnimationFrame(loop);
+      } else if(t<=T1+HOLD+T2){ const p=easeOut((t-T1-HOLD)/T2);
+        ctx.fillStyle='#040712'; ctx.fillRect(0,0,w,h);
+        for(const pt of parts){ const r1=pt.rad*p, r0=pt.rad*Math.max(0,p-0.06); pt.ang+=rot*0.0002*pt.sp; streak(pt,r0,r1); }
+        hole(holeMax*(1-p),1-p); el.style.opacity=String(1-p); requestAnimationFrame(loop);
+      } else { el.classList.remove('on'); el.style.opacity=''; document.body.style.overflow=''; busy=false; }
+    }
+    requestAnimationFrame(loop);
+  }
+  addEventListener('resize',()=>{ if(el.classList.contains('on')) size(); });
+  return { go };
+})();
+
+/* attach warp to in-page section links */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  const hash=a.getAttribute('href'); if(!hash || hash.length<=1) return;
+  a.addEventListener('click',e=>{
+    const target=document.querySelector(hash); if(!target) return;
+    e.preventDefault(); closeMenu(); warp.go(hash);
+  });
+});
+</script>
+</body>
+</html>
